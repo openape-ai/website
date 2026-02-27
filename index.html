@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenApe — Human Security for AI Agents</title>
+  <meta name="description" content="If lobsters take over the world, we need apes for security. OpenApe is the human-in-the-loop security layer for autonomous AI agents.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦍</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-subtle: #111111;
+      --bg-card: #161616;
+      --border: #222222;
+      --text: #e5e5e5;
+      --text-muted: #a3a3a3;
+      --text-dim: #8a8a8a;
+      --accent: #f97316;
+      --accent-glow: rgba(249, 115, 22, 0.15);
+      --accent-soft: #fb923c;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: clip;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo .ape { font-size: 1.8rem; }
+
+    nav .links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav .links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav .links a:hover { color: var(--text); }
+    nav .links a.btn-primary { color: #fff; }
+    nav .links a.btn-primary:hover { color: #fff; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--text-muted);
+      background: var(--bg-subtle);
+    }
+
+    /* --- HERO --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      max-width: 100vw;
+      height: 800px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      max-width: 900px;
+      position: relative;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 1.5rem auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* --- MANIFESTO --- */
+    .manifesto {
+      padding: 6rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .manifesto .quote {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+
+    .manifesto .quote .emoji { font-size: 1.2em; }
+
+    .manifesto .attribution {
+      margin-top: 1.5rem;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    /* --- PROBLEM / SOLUTION --- */
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+
+    .section .lead {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* --- TERMINAL DEMO --- */
+    .terminal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 720px;
+      margin: 3rem auto;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.85rem;
+    }
+
+    .terminal-bar {
+      background: var(--bg-subtle);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ef4444; }
+    .terminal-dot.yellow { background: #eab308; }
+    .terminal-dot.green { background: #22c55e; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    .terminal-body {
+      padding: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .terminal-body .line {
+      opacity: 0;
+      animation: fadeIn 0.3s forwards;
+    }
+
+    .terminal-body .prompt { color: var(--green); }
+    .terminal-body .cmd { color: var(--text); }
+    .terminal-body .output { color: var(--text-muted); }
+    .terminal-body .warn { color: var(--accent); }
+    .terminal-body .success { color: var(--green); }
+    .terminal-body .deny { color: var(--red); }
+    .terminal-body .dim { color: var(--text-dim); }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .terminal-body .line:nth-child(1) { animation-delay: 0.2s; }
+    .terminal-body .line:nth-child(2) { animation-delay: 0.6s; }
+    .terminal-body .line:nth-child(3) { animation-delay: 1.0s; }
+    .terminal-body .line:nth-child(4) { animation-delay: 1.4s; }
+    .terminal-body .line:nth-child(5) { animation-delay: 1.8s; }
+    .terminal-body .line:nth-child(6) { animation-delay: 2.2s; }
+    .terminal-body .line:nth-child(7) { animation-delay: 2.6s; }
+    .terminal-body .line:nth-child(8) { animation-delay: 3.0s; }
+    .terminal-body .line:nth-child(9) { animation-delay: 3.4s; }
+    .terminal-body .line:nth-child(10) { animation-delay: 3.8s; }
+
+    /* --- FEATURE GRID --- */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* --- HOW IT WORKS --- */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 3rem;
+      position: relative;
+    }
+
+    .flow::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--green));
+      opacity: 0.3;
+    }
+
+    .flow-step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.5rem 0;
+    }
+
+    .flow-num {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-content h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .flow-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* --- TRUST LEVELS --- */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .trust-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .trust-card .trust-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .trust-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .trust-card .trust-tag {
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .trust-card.once .trust-tag { background: rgba(239,68,68,0.15); color: var(--red); }
+    .trust-card.ttl .trust-tag { background: rgba(249,115,22,0.15); color: var(--accent); }
+    .trust-card.always .trust-tag { background: rgba(34,197,94,0.15); color: var(--green); }
+
+    .trust-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* --- DNS SECTION --- */
+    .dns-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .dns-chain {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .dns-node {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      font-family: 'SF Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .dns-node .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 0.3rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .dns-arrow {
+      color: var(--accent);
+      font-size: 1.5rem;
+    }
+
+    /* --- CTA --- */
+    .cta-section {
+      padding: 8rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      max-width: 100vw;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-section p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      position: relative;
+    }
+
+    .cta-section .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    footer .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      nav .links { display: none; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .dns-chain { flex-direction: column; }
+      .dns-arrow { transform: rotate(90deg); }
+      .flow::before { left: 18px; }
+      .flow-num { width: 40px; height: 40px; min-width: 40px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="inner">
+      <a href="#" class="logo">
+        <span class="ape">🦍</span>
+        <span>OpenApe</span>
+      </a>
+      <div class="links">
+        <a href="https://docs.openape.at" target="_blank">Docs</a>
+        <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
+        <a href="https://github.com/openape-ai/examples" class="btn btn-primary" target="_blank">Get started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Built on DDISA — DNS-based identity for agents
+    </div>
+    <h1>
+      The security layer<br>
+      <span class="highlight">agents are missing.</span>
+    </h1>
+    <p class="subtitle">
+      AI agents are getting powerful. They send emails, move money, deploy code.
+      OpenApe makes sure a human approves what matters — without slowing anything down.
+    </p>
+    <div class="cta-group">
+      <a href="https://github.com/openape-ai/examples" class="btn btn-primary" target="_blank">
+        Get started →
+      </a>
+      <a href="#how" class="btn btn-ghost">
+        See how it works
+      </a>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <p class="quote">
+      "If lobsters <span class="emoji">🦞</span> take over the world,<br>
+      we need apes <span class="emoji">🦍</span> for security."
+    </p>
+    <p class="attribution">— The OpenApe Manifesto</p>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section" id="problem">
+    <div class="section-label">The problem</div>
+    <h2>Agents act. Humans hope.</h2>
+    <p class="lead">
+      Today's AI agents can book flights, sign contracts, and push to production.
+      But there's no standardized way to verify <em>who</em> authorized <em>what</em>.
+      No audit trail. No approval flow. No kill switch.
+    </p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <div class="terminal-title">agent-session</div>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="prompt">agent →</span> <span class="cmd">Transfer €5,000 to vendor account</span></div>
+        <div class="line"><span class="warn">⚠ OpenApe: Action requires human approval</span></div>
+        <div class="line"><span class="dim">   Scope: finance.transfer | Amount: €5,000</span></div>
+        <div class="line"><span class="dim">   Approval sent to: patrick (Telegram)</span></div>
+        <div class="line"><span class="output">   ⏳ Waiting for approval...</span></div>
+        <div class="line"><span class="success">   ✓ Approved by patrick (1m 23s)</span></div>
+        <div class="line"><span class="dim">   Grant: allow_once | Expires: immediate</span></div>
+        <div class="line"><span class="success">agent →</span> <span class="cmd">Transfer complete. Receipt: #TXN-4821</span></div>
+        <div class="line"><span class="dim">   📋 Logged: agent=miniclaw action=finance.transfer approver=patrick</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO SYSTEMS -->
+  <section class="section" id="systems">
+    <div class="section-label">Two systems, one protocol</div>
+    <h2>Access and control.<br>Both solved.</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🔑</div>
+        <h3>OpenApe Auth</h3>
+        <p>DNS-based login for humans and agents. Passkeys for humans, Ed25519 for machines. Makes the Agentic Web frictionless — any service, any domain, one protocol. No bilateral integrations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🦍</div>
+        <h3>OpenApe Grants</h3>
+        <p>Human-in-the-loop permission system. Agents request, humans approve — once, time-limited, or standing. Scoped, signed, revocable. The leash where it matters.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top: 2rem;">
+      Auth makes agents possible. Grants make them accountable.<br>
+      Use both — or each on its own.
+    </p>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="section-label">How it works</div>
+    <h2>DNS-native identity.<br>Zero new infrastructure.</h2>
+    <p class="lead">
+      OpenApe uses DDISA — a DNS-based protocol that turns your domain into an identity provider.
+      No OAuth servers to maintain. No SDKs to integrate. Just a TXT record and you're live.
+    </p>
+
+    <div class="dns-visual">
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">Identity discovery in one DNS lookup</p>
+      <div class="dns-chain">
+        <div class="dns-node">
+          <div class="label">Agent asks</div>
+          <code>phofmann@company.at</code>
+        </div>
+        <div class="dns-arrow">→</div>
+        <div class="dns-node">
+          <div class="label">DNS lookup</div>
+          <code>_ddisa.company.at TXT</code>
+        </div>
+        <div class="dns-arrow">→</div>
+        <div class="dns-node">
+          <div class="label">Discovers</div>
+          <code>idp=https://id.company.at</code>
+        </div>
+        <div class="dns-arrow">→</div>
+        <div class="dns-node">
+          <div class="label">Authenticates</div>
+          <code style="color: var(--green);">✓ Verified</code>
+        </div>
+      </div>
+      <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 1rem;">
+        Like MX records for email, but for agent identity. Works with any domain you own.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h3>Agent wants to act</h3>
+          <p>Your AI agent needs to perform a privileged action — send money, access data, deploy code.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h3>OpenApe intercepts</h3>
+          <p>The action hits a permission boundary. OpenApe checks: does this agent have a valid grant for this scope?</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h3>Human gets notified</h3>
+          <p>If no grant exists, the human owner receives an approval request — via Telegram, email, or any channel.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h3>Approve with precision</h3>
+          <p>Grant <strong>once</strong>, for a <strong>time window</strong>, or <strong>always</strong> for this scope. Scoped, signed, auditable.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <h3>Agent proceeds. Everything logged.</h3>
+          <p>The action executes. Who approved it, when, and for what — all recorded. Dual accountability: agent owner + approver.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="section-label">Built for real agents</div>
+    <h2>Security without the friction.</h2>
+    <p class="lead">
+      OpenApe doesn't slow your agents down — it makes them trustworthy.
+    </p>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>Scoped permissions</h3>
+        <p>Grants are tied to specific actions and scopes. An agent approved for "read calendar" can't suddenly "send emails".</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>DNS-native discovery</h3>
+        <p>No central registry. Your domain is your identity anchor. Like email's MX records, but for agent auth.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Approve from anywhere</h3>
+        <p>Approval requests arrive on Telegram, email, or any messaging surface. Tap to approve. Done.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Replay protection</h3>
+        <p>Every grant is cryptographically signed with nonce and expiry. Can't be reused, forged, or replayed.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Full audit trail</h3>
+        <p>Dual accountability: who owns the agent AND who approved the action. Compliance-ready from day one.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Zero-infrastructure</h3>
+        <p>Add a DNS TXT record. Deploy the IdP. That's it. No OAuth complexity, no vendor lock-in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST LEVELS -->
+  <section class="section" id="trust">
+    <div class="section-label">Trust levels</div>
+    <h2>Not all actions are equal.</h2>
+    <p class="lead">
+      Some actions need a human every time. Others earn standing trust. OpenApe lets you decide.
+    </p>
+
+    <div class="trust-grid">
+      <div class="trust-card once">
+        <div class="trust-icon">🔴</div>
+        <span class="trust-tag">allow_once</span>
+        <h3>One-shot</h3>
+        <p>Approve this specific action, this one time. Grant is consumed immediately. For high-risk operations like transfers or deployments.</p>
+      </div>
+      <div class="trust-card ttl">
+        <div class="trust-icon">🟠</div>
+        <span class="trust-tag">allow_ttl</span>
+        <h3>Time-limited</h3>
+        <p>Grant access for a time window — 15 minutes, 1 hour, 1 day. Perfect for work sessions or batch operations.</p>
+      </div>
+      <div class="trust-card always">
+        <div class="trust-icon">🟢</div>
+        <span class="trust-tag">allow_always</span>
+        <h3>Standing trust</h3>
+        <p>This agent can always perform this action. Revocable anytime. For routine, low-risk operations you trust completely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section class="section" id="ecosystem">
+    <div class="section-label">The ecosystem</div>
+    <h2>Simple tools. Real security.</h2>
+    <p class="lead">
+      OpenApe isn't a monolith — it's a set of small, focused packages you compose as needed.
+      Use one. Use all. Each works standalone.
+    </p>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>@openape/core</h3>
+        <p>DNS discovery, crypto primitives, PKCE, JWT utilities. The foundation everything else builds on. Framework-agnostic, zero dependencies.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔑</div>
+        <h3>@openape/auth</h3>
+        <p>Complete OIDC login protocol — both sides. IdP: authorize, token exchange, key management. SP: discovery, auth URL, callback. Pure functions, no framework lock-in.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>@openape/grants</h3>
+        <p>The permission engine. Request, approve, deny, revoke — with signed AuthZ-JWTs. Works with any auth system, not just OpenApe's.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖥️</div>
+        <h3>Serverless IdP</h3>
+        <p>A complete identity provider that runs on Vercel, Cloudflare, or any edge runtime. S3-backed storage, passkey login, agent management. Deploy in minutes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Serverless SP</h3>
+        <p>A stateless service provider — zero server storage. OAuth flow state lives in signed cookies. Add OpenApe login to your app with one Nuxt module.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>openape-sudo</h3>
+        <p>A Rust binary for local privilege elevation. Your agent needs root? It requests a grant, the human approves, sudo executes — scoped, signed, logged. Like sudo, but for agents.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE -->
+  <section class="section" id="compliance">
+    <div class="section-label">Compliance</div>
+    <h2>Regulation-ready by design.</h2>
+    <p class="lead">
+      OpenApe requires passkeys (WebAuthn/FIDO2) for humans and Ed25519 challenge-response for agents.
+      No passwords. No phishing. No bolt-on MFA.
+      One architecture that satisfies both sides of the Atlantic.
+    </p>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🇪🇺</div>
+        <h3>NIS2</h3>
+        <p>Passkeys fulfill the strong authentication requirement — possession plus biometrics — without an extra MFA step. Compliant out of the box.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🇺🇸</div>
+        <h3>NIST CSF 2.0 &amp; EO 14028</h3>
+        <p>Phishing-resistant MFA and zero-trust identity — exactly what the Cybersecurity Framework and the Executive Order demand.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>One protocol, global reach</h3>
+        <p>No regional workarounds. The same passkey-first, grant-controlled architecture works everywhere — EU, US, and beyond.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE -->
+  <section class="section">
+    <div class="section-label">Open source</div>
+    <h2>Trust is built in the open.</h2>
+    <p class="lead">
+      OpenApe and the DDISA protocol are fully open source. Review every line.
+      Fork it. Extend it. The security layer for AI agents shouldn't be a black box.
+    </p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="https://github.com/openape-ai/examples" class="btn btn-ghost" target="_blank">
+        🚀 Examples — Full working IdP + SP
+      </a>
+      <a href="https://github.com/openape-ai" class="btn btn-ghost" target="_blank">
+        📦 All Packages — Core, Auth, Grants, Nuxt Modules
+      </a>
+      <a href="https://docs.openape.at" class="btn btn-ghost" target="_blank">
+        📖 Documentation
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="cta">
+    <h2>Ready to leash your agents?</h2>
+    <p>Add a DNS record. Deploy the IdP. Your agents are accountable in minutes.</p>
+    <div class="cta-group">
+      <a href="https://github.com/openape-ai/examples" class="btn btn-primary" target="_blank">
+        Get started →
+      </a>
+      <a href="https://docs.openape.at" class="btn btn-ghost" target="_blank">
+        Read the docs
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="margin-bottom: 1.5rem;">
+      🐾 we wash stinky paws with cryptography
+    </p>
+    <p>
+      <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
+    </p>
+    <p style="margin-top: 1rem;">
+      <a href="/shoutouts">Shoutouts 🫡</a>
+    </p>
+    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+      DDISA is a <a href="https://www.ffg.at" target="_blank" style="color: var(--accent);">FFG</a>-funded project — thanks for your support 🇦🇹
+    </p>
+    <p style="margin-top: 2rem; font-size: 0.75rem; color: var(--text-dim);">
+      Impressum: Patrick Hofmann
+    </p>
+  </footer>
+
+</body>
+</html>
