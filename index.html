@@ -634,7 +634,7 @@
       <div class="links">
         <a href="https://docs.openape.at" target="_blank">Docs</a>
         <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
-        <a href="https://github.com/openape-ai/examples" class="btn btn-primary" target="_blank">Get started</a>
+        <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">Get started</a>
       </div>
     </div>
   </nav>
@@ -654,7 +654,7 @@
       OpenApe makes sure a human approves what matters — without slowing anything down.
     </p>
     <div class="cta-group">
-      <a href="https://github.com/openape-ai/examples" class="btn btn-primary" target="_blank">
+      <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">
         Get started →
       </a>
       <a href="#how" class="btn btn-ghost">
@@ -901,18 +901,33 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">🖥️</div>
-        <h3>Serverless IdP</h3>
-        <p>A complete identity provider that runs on Vercel, Cloudflare, or any edge runtime. S3-backed storage, passkey login, agent management. Deploy in minutes.</p>
+        <h3>nuxt-auth-idp</h3>
+        <p>A Nuxt module that turns your app into an OpenApe identity provider. S3-backed storage, passkey login, agent management. Add the module, deploy, done.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌐</div>
-        <h3>Serverless SP</h3>
-        <p>A stateless service provider — zero server storage. OAuth flow state lives in signed cookies. Add OpenApe login to your app with one Nuxt module.</p>
+        <h3>nuxt-auth-sp</h3>
+        <p>A Nuxt module for service providers — zero server storage. OAuth flow state lives in signed cookies. Add OpenApe login to your app with one import.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🔐</div>
-        <h3>openape-sudo</h3>
-        <p>A Rust binary for local privilege elevation. Your agent needs root? It requests a grant, the human approves, sudo executes — scoped, signed, logged. Like sudo, but for agents.</p>
+        <h3>escapes</h3>
+        <p>A Rust binary for local privilege elevation. Your agent needs root? It requests a grant, the human approves, escapes executes — scoped, signed, logged. Like sudo, but for agents.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>@openape/proxy</h3>
+        <p>An agent HTTP gateway — a forward proxy with grant-based access control. Agents route requests through the proxy; it enforces grants before forwarding.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧭</div>
+        <h3>@openape/browser</h3>
+        <p>Grant-aware headless browser for agents. A Playwright wrapper with route interception, automatic grant checks, and delegation login. Browse the web — with guardrails.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🍇</div>
+        <h3>grapes</h3>
+        <p>Universal grant management CLI. List, inspect, approve, revoke grants from your terminal. The admin tool for anyone managing agent permissions.</p>
       </div>
     </div>
   </section>
@@ -954,11 +969,11 @@
       Fork it. Extend it. The security layer for AI agents shouldn't be a black box.
     </p>
     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="https://github.com/openape-ai/examples" class="btn btn-ghost" target="_blank">
-        🚀 Examples — Full working IdP + SP
+      <a href="https://github.com/openape-ai/openape" class="btn btn-ghost" target="_blank">
+        📦 Monorepo — Core, Auth, Grants, Proxy &amp; more
       </a>
-      <a href="https://github.com/openape-ai" class="btn btn-ghost" target="_blank">
-        📦 All Packages — Core, Auth, Grants, Nuxt Modules
+      <a href="https://github.com/openape-ai/protocol" class="btn btn-ghost" target="_blank">
+        📜 DDISA Protocol Spec
       </a>
       <a href="https://docs.openape.at" class="btn btn-ghost" target="_blank">
         📖 Documentation
@@ -971,11 +986,11 @@
     <h2>Ready to leash your agents?</h2>
     <p>Add a DNS record. Deploy the IdP. Your agents are accountable in minutes.</p>
     <div class="cta-group">
-      <a href="https://github.com/openape-ai/examples" class="btn btn-primary" target="_blank">
+      <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">
         Get started →
       </a>
-      <a href="https://docs.openape.at" class="btn btn-ghost" target="_blank">
-        Read the docs
+      <a href="https://github.com/openape-ai/openape" class="btn btn-ghost" target="_blank">
+        View on GitHub
       </a>
     </div>
   </section>
@@ -988,14 +1003,11 @@
     <p>
       <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
     </p>
-    <p style="margin-top: 1rem;">
-      <a href="/shoutouts">Shoutouts 🫡</a>
-    </p>
     <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
       DDISA is a <a href="https://www.ffg.at" target="_blank" style="color: var(--accent);">FFG</a>-funded project — thanks for your support 🇦🇹
     </p>
     <p style="margin-top: 2rem; font-size: 0.75rem; color: var(--text-dim);">
-      Impressum: Patrick Hofmann
+      <a href="https://delta-mind.at/impressum" target="_blank">Impressum</a> &middot; Delta Mind GmbH &middot; FN 455837 z &middot; ATU71654927
     </p>
   </footer>
 
