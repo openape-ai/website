@@ -16,9 +16,61 @@
   <meta name="twitter:title" content="OpenApe — Human Security for AI Agents">
   <meta name="twitter:description" content="The open-source security layer for autonomous AI agents. Passkey auth, privilege grants, DNS discovery.">
   <meta name="twitter:image" content="https://openape.at/og-image.png">
+  <meta name="keywords" content="AI agents, agent security, human-in-the-loop, DDISA, DNS identity, passkey, WebAuthn, OIDC, agent authentication, agent authorization, agentic web, NIS2, zero trust, open source, OpenApe">
+  <meta name="author" content="Delta Mind GmbH">
+  <link rel="canonical" href="https://openape.at">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦍</text></svg>">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://openape.at/#org",
+        "name": "OpenApe",
+        "url": "https://openape.at",
+        "logo": "https://openape.at/og-image.png",
+        "sameAs": [
+          "https://github.com/openape-ai"
+        ],
+        "description": "Open-source human-in-the-loop security layer for autonomous AI agents."
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "OpenApe",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Cross-platform",
+        "description": "DNS-native identity and grant-based authorization for AI agents. Passkey auth for humans, Ed25519 for machines.",
+        "url": "https://openape.at",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "publisher": { "@id": "https://openape.at/#org" }
+      }
+    ]
+  }
+  </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    /* Inter — self-hosted variable font (no third-party requests) */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/inter-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
 
     :root {
       --bg: #0a0a0a;
@@ -732,7 +784,7 @@
     <h2>DNS-native identity.<br>Zero new infrastructure.</h2>
     <p class="lead">
       OpenApe uses DDISA — a DNS-based protocol that turns your domain into an identity provider.
-      No OAuth servers to maintain. No SDKs to integrate. Just a TXT record and you're live.
+      Standard OIDC under the hood, zero configuration on top. Add a TXT record, deploy the IdP, and you're live.
     </p>
 
     <div class="dns-visual">
@@ -838,8 +890,8 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">⚡</div>
-        <h3>Zero-infrastructure</h3>
-        <p>Add a DNS TXT record. Deploy the IdP. That's it. No OAuth complexity, no vendor lock-in.</p>
+        <h3>Minimal footprint</h3>
+        <p>Add a DNS TXT record. Deploy the IdP. That's it. Standard OIDC under the hood, no vendor lock-in.</p>
       </div>
     </div>
   </section>
@@ -901,12 +953,12 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">🖥️</div>
-        <h3>nuxt-auth-idp</h3>
-        <p>A Nuxt module that turns your app into an OpenApe identity provider. S3-backed storage, passkey login, agent management. Add the module, deploy, done.</p>
+        <h3>@openape/nuxt-auth-idp</h3>
+        <p>A Nuxt module that turns your app into an OpenApe identity provider. Drizzle-backed storage, passkey login, agent management. Add the module, deploy, done.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌐</div>
-        <h3>nuxt-auth-sp</h3>
+        <h3>@openape/nuxt-auth-sp</h3>
         <p>A Nuxt module for service providers — zero server storage. OAuth flow state lives in signed cookies. Add OpenApe login to your app with one import.</p>
       </div>
       <div class="feature-card">
@@ -937,26 +989,66 @@
     <div class="section-label">Compliance</div>
     <h2>Regulation-ready by design.</h2>
     <p class="lead">
-      OpenApe requires passkeys (WebAuthn/FIDO2) for humans and Ed25519 challenge-response for agents.
+      OpenApe uses passkeys (WebAuthn/FIDO2) for humans and Ed25519 challenge-response for agents.
       No passwords. No phishing. No bolt-on MFA.
-      One architecture that satisfies both sides of the Atlantic.
+      One architecture designed to support modern security frameworks on both sides of the Atlantic.
     </p>
     <div class="features">
       <div class="feature-card">
         <div class="feature-icon">🇪🇺</div>
-        <h3>NIS2</h3>
-        <p>Passkeys fulfill the strong authentication requirement — possession plus biometrics — without an extra MFA step. Compliant out of the box.</p>
+        <h3>NIS2 aligned</h3>
+        <p>Passkeys are designed to support strong authentication requirements — possession plus biometrics — without a bolt-on MFA step. Built with NIS2 in mind.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🇺🇸</div>
-        <h3>NIST CSF 2.0 &amp; EO 14028</h3>
-        <p>Phishing-resistant MFA and zero-trust identity — exactly what the Cybersecurity Framework and the Executive Order demand.</p>
+        <h3>NIST CSF 2.0 &amp; EO 14028 aware</h3>
+        <p>Phishing-resistant MFA and zero-trust identity — aligned with the direction set by the Cybersecurity Framework and recent executive guidance.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌍</div>
         <h3>One protocol, global reach</h3>
         <p>No regional workarounds. The same passkey-first, grant-controlled architecture works everywhere — EU, US, and beyond.</p>
       </div>
+    </div>
+    <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 2rem; max-width: 700px;">
+      OpenApe is a technical building block, not legal advice. Compliance with NIS2, NIST CSF 2.0 or EO 14028 depends on how you operate, document and audit your overall system — not just which auth library you use.
+    </p>
+  </section>
+
+  <!-- DDISA PROTOCOL -->
+  <section class="section" id="protocol">
+    <div class="section-label">The protocol</div>
+    <h2>DDISA — the spec behind OpenApe.</h2>
+    <p class="lead">
+      DDISA (DNS-based Decentralized Identity for Services and Agents) is the open protocol
+      that powers every OpenApe package. It defines how domains announce identity, how
+      humans and agents authenticate, and how privileges are granted, scoped and revoked.
+      Read the spec. Implement your own. OpenApe is one reference — not the only one.
+    </p>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📘</div>
+        <h3>Core</h3>
+        <p>DNS discovery, key material, OIDC flows, passkey and Ed25519 authentication. The foundation every DDISA implementation shares.</p>
+        <p style="margin-top: 1rem;"><a href="https://github.com/openape-ai/protocol/blob/main/core.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Read core.md →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Grants</h3>
+        <p>Signed AuthZ-JWTs, scopes, trust levels (allow_once, allow_ttl, allow_always), request and approval flows, revocation semantics.</p>
+        <p style="margin-top: 1rem;"><a href="https://github.com/openape-ai/protocol/blob/main/grants.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Read grants.md →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Delegation</h3>
+        <p>How humans delegate to agents and agents delegate to other agents — with chains of accountability that survive audits.</p>
+        <p style="margin-top: 1rem;"><a href="https://github.com/openape-ai/protocol/blob/main/delegation.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Read delegation.md →</a></p>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <a href="https://github.com/openape-ai/protocol" class="btn btn-ghost" target="_blank">
+        📜 Full protocol repository
+      </a>
     </div>
   </section>
 
@@ -969,11 +1061,8 @@
       Fork it. Extend it. The security layer for AI agents shouldn't be a black box.
     </p>
     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="https://github.com/openape-ai/openape" class="btn btn-ghost" target="_blank">
-        📦 Monorepo — Core, Auth, Grants, Proxy &amp; more
-      </a>
-      <a href="https://github.com/openape-ai/protocol" class="btn btn-ghost" target="_blank">
-        📜 DDISA Protocol Spec
+      <a href="https://github.com/openape-ai" class="btn btn-ghost" target="_blank">
+        🐙 All repositories on GitHub
       </a>
       <a href="https://docs.openape.at" class="btn btn-ghost" target="_blank">
         📖 Documentation
@@ -989,7 +1078,7 @@
       <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">
         Get started →
       </a>
-      <a href="https://github.com/openape-ai/openape" class="btn btn-ghost" target="_blank">
+      <a href="https://github.com/openape-ai" class="btn btn-ghost" target="_blank">
         View on GitHub
       </a>
     </div>
@@ -1000,14 +1089,17 @@
     <p style="margin-bottom: 1.5rem;">
       🐾 we wash stinky paws with cryptography
     </p>
-    <p>
+    <div class="footer-links">
       <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
-    </p>
-    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
-      DDISA is a <a href="https://www.ffg.at" target="_blank" style="color: var(--accent);">FFG</a>-funded project — thanks for your support 🇦🇹
+      <a href="https://docs.openape.at" target="_blank">Docs</a>
+      <a href="#protocol">DDISA Protocol</a>
+    </div>
+    <p style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-dim); max-width: 640px; margin-left: auto; margin-right: auto;">
+      This site does not use cookies, analytics, or third-party trackers. Fonts are self-hosted. Nothing leaves your browser.
     </p>
     <p style="margin-top: 2rem; font-size: 0.75rem; color: var(--text-dim);">
-      <a href="https://delta-mind.at/impressum" target="_blank">Impressum</a> &middot; Delta Mind GmbH &middot; FN 455837 z &middot; ATU71654927
+      <a href="https://www.delta-mind.at/de/impressum" target="_blank">Impressum</a> &middot;
+      Delta Mind GmbH &middot; FN 455837 z &middot; ATU71654927
     </p>
   </footer>
 
