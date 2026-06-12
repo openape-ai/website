@@ -1,0 +1,23 @@
+# Prod compose for openape.ai on chatty. Traefik (coolify network)
+# routes Host(`openape.ai`) → http://site-website:80; no published
+# ports. Deployed by scripts/deploy-image.mjs, tag pinned via .env
+# (WEBSITE_TAG / WEBSITE_TAG_PREV for rollback).
+
+name: site-website
+
+networks:
+  coolify:
+    external: true
+
+services:
+  web:
+    image: registry.openape.ai/site-website:${WEBSITE_TAG:-unset}
+    container_name: site-website
+    restart: unless-stopped
+    networks:
+      - coolify
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
