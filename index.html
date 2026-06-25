@@ -663,6 +663,102 @@
       margin-bottom: 1.5rem;
     }
 
+    /* --- ECOSYSTEM STRIP (under hero) --- */
+    .eco-strip {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      position: relative;
+    }
+
+    .eco-strip-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+    }
+
+    .eco-strip-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem 0.9rem;
+      max-width: 680px;
+    }
+
+    .eco-strip-items span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .eco-strip-items i {
+      color: var(--border);
+      font-style: normal;
+    }
+
+    /* --- THE STACK (layer diagram) --- */
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 3rem;
+    }
+
+    .layer {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 1.4rem 2rem;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .layer:hover {
+      transform: translateX(4px);
+      border-color: var(--accent);
+    }
+
+    .layer.runtime  { border-left-color: var(--accent-soft); }
+    .layer.authz    { border-left-color: #fbbf24; }
+    .layer.identity { border-left-color: var(--green); }
+
+    .layer-tag {
+      min-width: 130px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    .layer.runtime  .layer-tag { color: var(--accent-soft); }
+    .layer.authz    .layer-tag { color: #fbbf24; }
+    .layer.identity .layer-tag { color: var(--green); }
+
+    .layer-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .layer-body strong {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .layer-body span {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
     /* --- RESPONSIVE --- */
     @media (max-width: 768px) {
       nav .links { display: none; }
@@ -671,6 +767,8 @@
       .dns-arrow { transform: rotate(90deg); }
       .flow::before { left: 18px; }
       .flow-num { width: 40px; height: 40px; min-width: 40px; font-size: 1rem; }
+      .layer { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 1.2rem 1.4rem; }
+      .layer-tag { min-width: 0; }
     }
   </style>
 </head>
@@ -695,23 +793,30 @@
   <section class="hero">
     <div class="hero-badge">
       <span class="dot"></span>
-      Built on DDISA — DNS-based identity for agents
+      Open source · Built on DDISA
     </div>
     <h1>
       The security layer<br>
+      — and the toolkit —<br>
       <span class="highlight">agents are missing.</span>
     </h1>
     <p class="subtitle">
-      AI agents are getting powerful. They send emails, move money, deploy code.
-      OpenApe makes sure a human approves what matters — without slowing anything down.
+      Identity, grants, a runtime, and a suite of tools for autonomous AI agents.
+      A human approves what matters — and your agents get everything they need to work.
     </p>
     <div class="cta-group">
       <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">
         Get started →
       </a>
-      <a href="#how" class="btn btn-ghost">
-        See how it works
+      <a href="#stack" class="btn btn-ghost">
+        Explore the stack
       </a>
+    </div>
+    <div class="eco-strip">
+      <span class="eco-strip-label">One ecosystem</span>
+      <div class="eco-strip-items">
+        <span>Auth</span><i>·</i><span>Grants</span><i>·</i><span>Troop</span><i>·</i><span>Nest</span><i>·</i><span>Tasks</span><i>·</i><span>Testrun</span><i>·</i><span>PR review</span><i>·</i><span>LLM gateway</span>
+      </div>
     </div>
     <div class="scroll-hint">↓</div>
   </section>
@@ -723,6 +828,46 @@
       we need apes <span class="emoji">🦍</span> for security."
     </p>
     <p class="attribution">— The OpenApe Manifesto</p>
+  </section>
+
+  <!-- THE STACK -->
+  <section class="section" id="stack">
+    <div class="section-label">The ecosystem</div>
+    <h2>Four layers. One stack.</h2>
+    <p class="lead">
+      OpenApe is identity at the bottom and tools at the top — each layer building on the one below,
+      each usable on its own. Security isn't bolted on; it's the floor the whole ecosystem stands on.
+    </p>
+    <div class="stack">
+      <div class="layer tools">
+        <div class="layer-tag">Tools</div>
+        <div class="layer-body">
+          <strong>What agents work with</strong>
+          <span>Tasks · Testrun · PR review · LLM gateway · Plans</span>
+        </div>
+      </div>
+      <div class="layer runtime">
+        <div class="layer-tag">Runtime</div>
+        <div class="layer-body">
+          <strong>Where agents run — as a company</strong>
+          <span>Nest · Troop</span>
+        </div>
+      </div>
+      <div class="layer authz">
+        <div class="layer-tag">Authorization</div>
+        <div class="layer-body">
+          <strong>What they're allowed to do</strong>
+          <span>Grants · human-in-the-loop · escapes · proxy</span>
+        </div>
+      </div>
+      <div class="layer identity">
+        <div class="layer-tag">Identity</div>
+        <div class="layer-body">
+          <strong>Who they are</strong>
+          <span>DDISA · DNS discovery · passkeys + Ed25519</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- PROBLEM -->
