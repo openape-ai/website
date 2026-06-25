@@ -663,42 +663,21 @@
       margin-bottom: 1.5rem;
     }
 
-    /* --- ECOSYSTEM STRIP (under hero) --- */
-    .eco-strip {
-      margin-top: 3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.85rem;
-      position: relative;
-    }
-
-    .eco-strip-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-dim);
-    }
-
-    .eco-strip-items {
+    /* --- HERO LAYER LINE --- */
+    .eco-layers {
+      margin: 1.5rem auto 0;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 0.4rem 0.9rem;
-      max-width: 680px;
+      gap: 0.4rem 1.1rem;
+      font-size: clamp(1rem, 2.2vw, 1.45rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
-    .eco-strip-items span {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .eco-strip-items i {
-      color: var(--border);
-      font-style: normal;
-    }
+    .eco-layers span { color: var(--text); }
+    .eco-layers i { color: var(--accent); font-style: normal; font-weight: 400; }
 
     /* --- THE STACK (layer diagram) --- */
     .stack {
@@ -725,8 +704,9 @@
       border-color: var(--accent);
     }
 
-    .layer.runtime  { border-left-color: var(--accent-soft); }
-    .layer.authz    { border-left-color: #fbbf24; }
+    .layer.toolkits { border-left-color: var(--accent-soft); }
+    .layer.runtime  { border-left-color: #fbbf24; }
+    .layer.security { border-left-color: #a3e635; }
     .layer.identity { border-left-color: var(--green); }
 
     .layer-tag {
@@ -738,8 +718,9 @@
       color: var(--accent);
     }
 
-    .layer.runtime  .layer-tag { color: var(--accent-soft); }
-    .layer.authz    .layer-tag { color: #fbbf24; }
+    .layer.toolkits .layer-tag { color: var(--accent-soft); }
+    .layer.runtime  .layer-tag { color: #fbbf24; }
+    .layer.security .layer-tag { color: #a3e635; }
     .layer.identity .layer-tag { color: var(--green); }
 
     .layer-body {
@@ -796,13 +777,14 @@
       Open source · Built on DDISA
     </div>
     <h1>
-      The security layer.<br>
-      The toolkit.<br>
-      <span class="highlight">Everything agents are missing.</span>
+      The agent <span class="highlight">ecosystem.</span>
     </h1>
+    <div class="eco-layers">
+      <span>Identity</span><i>·</i><span>Security</span><i>·</i><span>Runtime</span><i>·</i><span>Toolkits</span><i>·</i><span>Apps</span>
+    </div>
     <p class="subtitle">
-      Identity, grants, a runtime, and a suite of tools for autonomous AI agents.
-      A human approves what matters — and your agents get everything they need to work.
+      One open stack for autonomous AI agents — DNS-based identity, human-in-the-loop grants,
+      a runtime that runs them as a company, and the toolkits and apps they work with.
     </p>
     <div class="cta-group">
       <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">
@@ -811,12 +793,6 @@
       <a href="#stack" class="btn btn-ghost">
         Explore the stack
       </a>
-    </div>
-    <div class="eco-strip">
-      <span class="eco-strip-label">One ecosystem</span>
-      <div class="eco-strip-items">
-        <span>Auth</span><i>·</i><span>Grants</span><i>·</i><span>Troop</span><i>·</i><span>Nest</span><i>·</i><span>Tasks</span><i>·</i><span>Testrun</span><i>·</i><span>PR review</span><i>·</i><span>LLM gateway</span>
-      </div>
     </div>
     <div class="scroll-hint">↓</div>
   </section>
@@ -833,17 +809,24 @@
   <!-- THE STACK -->
   <section class="section" id="stack">
     <div class="section-label">The ecosystem</div>
-    <h2>Four layers. One stack.</h2>
+    <h2>Five layers. One stack.</h2>
     <p class="lead">
-      OpenApe is identity at the bottom and tools at the top — each layer building on the one below,
+      OpenApe is identity at the bottom and apps at the top — each layer building on the one below,
       each usable on its own. Security isn't bolted on; it's the floor the whole ecosystem stands on.
     </p>
     <div class="stack">
-      <div class="layer tools">
-        <div class="layer-tag">Tools</div>
+      <div class="layer apps">
+        <div class="layer-tag">Apps</div>
         <div class="layer-body">
-          <strong>What agents work with</strong>
+          <strong>What agents use</strong>
           <span>Tasks · Testrun · PR review · LLM gateway · Plans</span>
+        </div>
+      </div>
+      <div class="layer toolkits">
+        <div class="layer-tag">Toolkits</div>
+        <div class="layer-body">
+          <strong>Build on it yourself</strong>
+          <span>@openape/core · auth · grants · browser · escapes · proxy</span>
         </div>
       </div>
       <div class="layer runtime">
@@ -853,11 +836,11 @@
           <span>Nest · Troop</span>
         </div>
       </div>
-      <div class="layer authz">
-        <div class="layer-tag">Authorization</div>
+      <div class="layer security">
+        <div class="layer-tag">Security</div>
         <div class="layer-body">
           <strong>What they're allowed to do</strong>
-          <span>Grants · human-in-the-loop · escapes · proxy</span>
+          <span>Grants · human-in-the-loop · scoped, signed, revocable</span>
         </div>
       </div>
       <div class="layer identity">
