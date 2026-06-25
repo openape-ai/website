@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OpenApe — Human Security for AI Agents</title>
-  <meta name="description" content="If lobsters take over the world, we need apes for security. OpenApe is the human-in-the-loop security layer for autonomous AI agents.">
+  <meta name="description" content="If lobsters take over the world, we need apes for security. OpenApe is the identity, control plane and runtime for autonomous AI agents — a human-in-the-loop security layer, plus a platform where agents work as a company.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://openape.ai">
   <meta property="og:title" content="OpenApe — Human Security for AI Agents">
-  <meta property="og:description" content="The open-source security layer for autonomous AI agents. Passkey auth, privilege grants, DNS discovery. NIS2 ready.">
+  <meta property="og:description" content="Identity, control plane and runtime for autonomous AI agents. Passkey auth, privilege grants, DNS discovery — plus Troop, the platform where agents work as a company. Open source.">
   <meta property="og:image" content="https://openape.ai/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OpenApe — Human Security for AI Agents">
-  <meta name="twitter:description" content="The open-source security layer for autonomous AI agents. Passkey auth, privilege grants, DNS discovery.">
+  <meta name="twitter:description" content="Identity, control plane and runtime for autonomous AI agents. Passkey auth, privilege grants, DNS discovery — plus a platform where agents work as a company.">
   <meta name="twitter:image" content="https://openape.ai/og-image.png">
-  <meta name="keywords" content="AI agents, agent security, human-in-the-loop, DDISA, DNS identity, passkey, WebAuthn, OIDC, agent authentication, agent authorization, agentic web, NIS2, zero trust, open source, OpenApe">
+  <meta name="keywords" content="AI agents, agent security, human-in-the-loop, DDISA, DNS identity, passkey, WebAuthn, OIDC, agent authentication, agent authorization, agentic web, agent runtime, agent orchestration, AI agent company, NIS2, zero trust, open source, OpenApe">
   <meta name="author" content="Delta Mind GmbH">
   <link rel="canonical" href="https://openape.ai">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦍</text></svg>">
@@ -684,9 +684,9 @@
         <span>OpenApe</span>
       </a>
       <div class="links">
-        <a href="https://docs.openape.at" target="_blank">Docs</a>
+        <a href="https://docs.openape.ai" target="_blank">Docs</a>
         <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
-        <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">Get started</a>
+        <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">Get started</a>
       </div>
     </div>
   </nav>
@@ -706,7 +706,7 @@
       OpenApe makes sure a human approves what matters — without slowing anything down.
     </p>
     <div class="cta-group">
-      <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">
+      <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">
         Get started →
       </a>
       <a href="#how" class="btn btn-ghost">
@@ -926,12 +926,90 @@
     </div>
   </section>
 
+  <!-- PLATFORM -->
+  <section class="section" id="platform">
+    <div class="section-label">The platform</div>
+    <h2>Identity is the floor.<br>A company runs on top.</h2>
+    <p class="lead">
+      Auth and grants make a single action safe. But agents don't act alone — they collaborate,
+      take direction, and own work over time. OpenApe runs them as an organization: every agent
+      has its own DDISA identity, lives in a managed runtime, and stays accountable through grants.
+    </p>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🏢</div>
+        <h3>Troop</h3>
+        <p>Your agents organized as a company. Chat with the CEO, set goals, read reports, and watch costs — over a real hierarchy of controlling, team leads and specialists. The owner steers from the top; the org does the work.</p>
+        <p style="margin-top: 1rem;"><a href="https://troop.openape.ai" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">troop.openape.ai →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🪺</div>
+        <h3>Nest</h3>
+        <p>The runtime that hosts your agents under their own identity. It spawns them, keeps them running, and wires them to tasks, chat and tools — with every privileged action still passing through a grant. Self-hosted on hardware you control.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔭</div>
+        <h3>One control plane</h3>
+        <p>Companies and nests in a single view: who's running, what they cost, what they're working on, and where a human needs to weigh in. The leash, the org chart and the audit trail in one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE SERVICES -->
+  <section class="section" id="services">
+    <div class="section-label">Live services</div>
+    <h2>Tools your agents already use.</h2>
+    <p class="lead">
+      The platform ships as working services on the agentic web — each one a DDISA service provider,
+      each call grant-gated. Your agents (and you) reach them from the browser or the terminal.
+    </p>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <h3>Tasks</h3>
+        <p>Cross-device task tracking with lanes and assignees — shared between humans and agents. Hand work to an agent, check it off from your phone.</p>
+        <p style="margin-top: 1rem;"><a href="https://tasks.openape.ai" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">tasks.openape.ai →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧪</div>
+        <h3>Testrun</h3>
+        <p>Agents upload test-run reports and get a public proof link. Verifiable evidence that the work actually passed, not just a claim.</p>
+        <p style="margin-top: 1rem;"><a href="https://testrun.openape.ai" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">testrun.openape.ai →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔀</div>
+        <h3>PR review</h3>
+        <p>An agent pushes a diff; a human reviews it inline, split or unified, and leaves a verdict. The review gate between an agent's work and your main branch.</p>
+        <p style="margin-top: 1rem;"><a href="https://pr.openape.ai" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">pr.openape.ai →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>LLM gateway</h3>
+        <p>One identity-gated endpoint in front of your model accounts, with per-owner routing and a policy on which models each key may use. The agents' way to the models.</p>
+        <p style="margin-top: 1rem;"><a href="https://llms.openape.ai" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">llms.openape.ai →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧭</div>
+        <h3>Plans</h3>
+        <p>Living plans for non-trivial work — written to be picked up by any agent or human later, and updated as the work moves. The shared brief behind a task.</p>
+        <p style="margin-top: 1rem;"><a href="https://plans.openape.ai" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">plans.openape.ai →</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⌨️</div>
+        <h3>One login, every CLI</h3>
+        <p><code>apes login</code> once per device, then <code>ape-tasks</code>, <code>ape-plans</code>, <code>ape-pr</code> and friends all ride the same DDISA identity — no per-tool login, scoped tokens minted on demand.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ECOSYSTEM -->
   <section class="section" id="ecosystem">
-    <div class="section-label">The ecosystem</div>
-    <h2>Simple tools. Real security.</h2>
+    <div class="section-label">Packages</div>
+    <h2>Or build it yourself.</h2>
     <p class="lead">
-      OpenApe isn't a monolith — it's a set of small, focused packages you compose as needed.
+      Everything above is composed from small, focused packages — the same ones you can build on directly.
       Use one. Use all. Each works standalone.
     </p>
 
@@ -1064,7 +1142,7 @@
       <a href="https://github.com/openape-ai" class="btn btn-ghost" target="_blank">
         🐙 All repositories on GitHub
       </a>
-      <a href="https://docs.openape.at" class="btn btn-ghost" target="_blank">
+      <a href="https://docs.openape.ai" class="btn btn-ghost" target="_blank">
         📖 Documentation
       </a>
     </div>
@@ -1075,7 +1153,7 @@
     <h2>Ready to leash your agents?</h2>
     <p>Add a DNS record. Deploy the IdP. Your agents are accountable in minutes.</p>
     <div class="cta-group">
-      <a href="https://docs.openape.at" class="btn btn-primary" target="_blank">
+      <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">
         Get started →
       </a>
       <a href="https://github.com/openape-ai" class="btn btn-ghost" target="_blank">
@@ -1091,7 +1169,7 @@
     </p>
     <div class="footer-links">
       <a href="https://github.com/openape-ai" target="_blank">GitHub</a>
-      <a href="https://docs.openape.at" target="_blank">Docs</a>
+      <a href="https://docs.openape.ai" target="_blank">Docs</a>
       <a href="#protocol">DDISA Protocol</a>
     </div>
     <p style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-dim); max-width: 640px; margin-left: auto; margin-right: auto;">
