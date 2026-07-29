@@ -9,7 +9,20 @@
 // Prereqs: `docker login registry.openape.ai` and SSH access as openape.
 
 import { execFileSync } from 'node:child_process'
+import { existsSync } from 'node:fs'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import process from 'node:process'
+
+// Registry auth for `docker push` from ANY session — the default
+// ~/.docker/config.json uses the osxkeychain helper, which only works inside an
+// interactive GUI login. Only the push runs with DOCKER_CONFIG pointed at the
+// isolated static config, so buildx keeps its default config (cli-plugins).
+// Set up once with the monorepo's scripts/setup-registry-auth.sh.
+const ISOLATED_DOCKER_CONFIG = join(homedir(), '.config', 'openape', 'docker')
+const PUSH_ENV = existsSync(join(ISOLATED_DOCKER_CONFIG, 'config.json'))
+  ? { ...process.env, DOCKER_CONFIG: ISOLATED_DOCKER_CONFIG }
+  : process.env
 
 const SITE = {
   /** Directory to serve (build context of compose/site.Dockerfile). */
@@ -90,7 +103,7 @@ sh('docker', ['buildx', 'build', '--platform', 'linux/amd64', '-f', 'compose/sit
 console.log('→ smoke test')
 await smokeTest(tag)
 console.log('→ push')
-sh('docker', ['push', tag])
+sh('docker', ['push', tag], { env: PUSH_ENV })
 
 console.log('→ chatty: sync compose, pin tag, pull + up')
 ssh(`mkdir -p ${SITE.prodDir}`)
