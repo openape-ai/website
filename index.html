@@ -335,6 +335,18 @@
       line-height: 1.15;
     }
 
+    h2 .anchor {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    h2:hover .anchor, h2 .anchor:focus-visible { opacity: 1; }
+    h2 .anchor:hover { color: var(--accent); }
+    @media (hover: none) { h2 .anchor { opacity: 0.5; } }
+    section[id] { scroll-margin-top: 4rem; }
+
     .section .lead {
       font-size: 1.15rem;
       color: var(--text-muted);
@@ -816,7 +828,7 @@
   <!-- THE STACK -->
   <section class="section" id="stack">
     <div class="section-label">The ecosystem</div>
-    <h2>Five layers. One stack.</h2>
+    <h2>Five layers. One stack. <a class="anchor" href="#stack" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       OpenApe is identity at the bottom and apps at the top — each layer building on the one below,
       each usable on its own. Security isn't bolted on; it's the floor the whole ecosystem stands on.
@@ -863,7 +875,7 @@
   <!-- PROBLEM -->
   <section class="section" id="problem">
     <div class="section-label">The problem</div>
-    <h2>Agents act. Humans hope.</h2>
+    <h2>Agents act. Humans hope. <a class="anchor" href="#problem" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       Today's AI agents can book flights, send emails, sign contracts, and push to production.
       But there's no standardized way to verify <em>who</em> authorized <em>what</em>.
@@ -901,7 +913,7 @@
   <!-- TWO SYSTEMS -->
   <section class="section" id="systems">
     <div class="section-label">Two systems, one protocol</div>
-    <h2>Access and control.<br>Both solved.</h2>
+    <h2>Access and control.<br>Both solved. <a class="anchor" href="#systems" aria-label="Link to this section">#</a></h2>
     <div class="features">
       <div class="feature-card">
         <div class="feature-icon">🔑</div>
@@ -923,7 +935,7 @@
   <!-- HOW IT WORKS -->
   <section class="section" id="how">
     <div class="section-label">How it works</div>
-    <h2>DNS-native identity.<br>Zero new infrastructure.</h2>
+    <h2>DNS-native identity.<br>Zero new infrastructure. <a class="anchor" href="#how" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       OpenApe uses DDISA — a DNS-based protocol that turns your domain into an identity provider.
       Standard OIDC under the hood, zero configuration on top. Add a TXT record, deploy the IdP, and you're live.
@@ -997,9 +1009,9 @@
   </section>
 
   <!-- FEATURES -->
-  <section class="section">
+  <section class="section" id="features">
     <div class="section-label">Built for real agents</div>
-    <h2>Security without the friction.</h2>
+    <h2>Security without the friction. <a class="anchor" href="#features" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       OpenApe doesn't slow your agents down — it makes them trustworthy.
     </p>
@@ -1041,7 +1053,7 @@
   <!-- TRUST LEVELS -->
   <section class="section" id="trust">
     <div class="section-label">Trust levels</div>
-    <h2>Not all actions are equal.</h2>
+    <h2>Not all actions are equal. <a class="anchor" href="#trust" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       Some actions need a human every time. Others earn standing trust. OpenApe lets you decide.
     </p>
@@ -1071,7 +1083,7 @@
   <!-- PLATFORM -->
   <section class="section" id="platform">
     <div class="section-label">The platform</div>
-    <h2>Identity is the floor.<br>A company runs on top.</h2>
+    <h2>Identity is the floor.<br>A company runs on top. <a class="anchor" href="#platform" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       Auth and grants make a single action safe. But agents don't act alone — they run on a schedule,
       collaborate, take direction, and own work over time. Pods run single automations on your Mac;
@@ -1108,7 +1120,7 @@
   <!-- LIVE SERVICES -->
   <section class="section" id="services">
     <div class="section-label">Live services</div>
-    <h2>Tools your agents already use.</h2>
+    <h2>Tools your agents already use. <a class="anchor" href="#services" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       The platform ships as working services on the agentic web — each one a DDISA service provider,
       each call grant-gated. Your agents (and you) reach them from the browser or the terminal.
@@ -1180,7 +1192,7 @@
   <!-- ECOSYSTEM -->
   <section class="section" id="ecosystem">
     <div class="section-label">Packages</div>
-    <h2>Or build it yourself.</h2>
+    <h2>Or build it yourself. <a class="anchor" href="#ecosystem" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       Everything above is composed from small, focused packages — the same ones you can build on directly.
       Use one. Use all. Each works standalone.
@@ -1258,7 +1270,7 @@
   <!-- COMPLIANCE -->
   <section class="section" id="compliance">
     <div class="section-label">Compliance</div>
-    <h2>Regulation-ready by design.</h2>
+    <h2>Regulation-ready by design. <a class="anchor" href="#compliance" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       OpenApe uses passkeys (WebAuthn/FIDO2) for humans and Ed25519 challenge-response for agents.
       No passwords. No phishing. No bolt-on MFA.
@@ -1289,7 +1301,7 @@
   <!-- DDISA PROTOCOL -->
   <section class="section" id="protocol">
     <div class="section-label">The protocol</div>
-    <h2>DDISA — the spec behind OpenApe.</h2>
+    <h2>DDISA — the spec behind OpenApe. <a class="anchor" href="#protocol" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       DDISA (DNS-based Decentralized Identity for Services and Agents) is the open protocol
       that powers every OpenApe package. It defines how domains announce identity, how
@@ -1330,9 +1342,9 @@
   </section>
 
   <!-- OPEN SOURCE -->
-  <section class="section">
+  <section class="section" id="open-source">
     <div class="section-label">Open source</div>
-    <h2>Trust is built in the open.</h2>
+    <h2>Trust is built in the open. <a class="anchor" href="#open-source" aria-label="Link to this section">#</a></h2>
     <p class="lead">
       OpenApe and the DDISA protocol are fully open source. Review every line.
       Fork it. Extend it. The security layer for AI agents shouldn't be a black box.
@@ -1349,7 +1361,7 @@
 
   <!-- CTA -->
   <section class="cta-section" id="cta">
-    <h2>Ready to leash your agents?</h2>
+    <h2>Ready to leash your agents? <a class="anchor" href="#cta" aria-label="Link to this section">#</a></h2>
     <p>Add a DNS record. Deploy the IdP. Your agents are accountable in minutes.</p>
     <div class="cta-group">
       <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">
