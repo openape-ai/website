@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OpenApe — The Agent Ecosystem</title>
-  <meta name="description" content="One open stack for autonomous AI agents: DNS-based identity, human-in-the-loop grants, a runtime that runs them as a company, and the toolkits and apps they work with. If lobsters take over the world, we need apes for security.">
+  <meta name="description" content="One open stack for autonomous AI agents: DNS-based identity, human-in-the-loop grants, a runtime that runs them on your Mac or as a company, and the toolkits and apps they work with. If lobsters take over the world, we need apes for security.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://openape.ai">
   <meta property="og:title" content="OpenApe — The Agent Ecosystem">
-  <meta property="og:description" content="Identity · Security · Runtime · Toolkits · Apps. One open stack for autonomous AI agents — DDISA identity, privilege grants, Nest and Troop, and the services agents work with. Open source.">
+  <meta property="og:description" content="Identity · Security · Runtime · Toolkits · Apps. One open stack for autonomous AI agents — DDISA identity, privilege grants, Pods, Nest and Troop, and the services agents work with. Open source.">
   <meta property="og:image" content="https://openape.ai/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OpenApe — The Agent Ecosystem">
-  <meta name="twitter:description" content="Identity · Security · Runtime · Toolkits · Apps. One open stack for autonomous AI agents — DDISA identity, privilege grants, Nest and Troop, and the services agents work with.">
+  <meta name="twitter:description" content="Identity · Security · Runtime · Toolkits · Apps. One open stack for autonomous AI agents — DDISA identity, privilege grants, Pods, Nest and Troop, and the services agents work with.">
   <meta name="twitter:image" content="https://openape.ai/og-image.png">
   <meta name="keywords" content="AI agents, agent security, human-in-the-loop, DDISA, DNS identity, passkey, WebAuthn, OIDC, agent authentication, agent authorization, agentic web, agent runtime, agent orchestration, AI agent company, NIS2, zero trust, open source, OpenApe">
   <meta name="author" content="Delta Mind GmbH">
@@ -413,6 +413,13 @@
     .terminal-body .line:nth-child(8) { animation-delay: 3.0s; }
     .terminal-body .line:nth-child(9) { animation-delay: 3.4s; }
     .terminal-body .line:nth-child(10) { animation-delay: 3.8s; }
+    .terminal-body .line:nth-child(11) { animation-delay: 4.2s; }
+    .terminal-body .line:nth-child(12) { animation-delay: 4.6s; }
+    .terminal-body .line:nth-child(13) { animation-delay: 5.0s; }
+    .terminal-body .line:nth-child(14) { animation-delay: 5.4s; }
+    .terminal-body .line:nth-child(15) { animation-delay: 5.8s; }
+    .terminal-body .line:nth-child(16) { animation-delay: 6.2s; }
+    .terminal-body .line:nth-child(17) { animation-delay: 6.6s; }
 
     /* --- FEATURE GRID --- */
     .features {
@@ -784,7 +791,7 @@
     </div>
     <p class="subtitle">
       One open stack for autonomous AI agents — DNS-based identity, human-in-the-loop grants,
-      a runtime that runs them as a company, and the toolkits and apps they work with.
+      a runtime that runs them on your Mac or as a company, and the toolkits and apps they work with.
     </p>
     <div class="cta-group">
       <a href="https://docs.openape.ai" class="btn btn-primary" target="_blank">
@@ -832,8 +839,8 @@
       <div class="layer runtime">
         <div class="layer-tag">Runtime</div>
         <div class="layer-body">
-          <strong>Where agents run — as a company</strong>
-          <span>Nest · Troop</span>
+          <strong>Where agents run — on your Mac or as a company</strong>
+          <span>Pods · Nest · Troop</span>
         </div>
       </div>
       <div class="layer security">
@@ -858,7 +865,7 @@
     <div class="section-label">The problem</div>
     <h2>Agents act. Humans hope.</h2>
     <p class="lead">
-      Today's AI agents can book flights, sign contracts, and push to production.
+      Today's AI agents can book flights, send emails, sign contracts, and push to production.
       But there's no standardized way to verify <em>who</em> authorized <em>what</em>.
       No audit trail. No approval flow. No kill switch.
     </p>
@@ -880,6 +887,13 @@
         <div class="line"><span class="dim">   Grant: allow_once | Expires: immediate</span></div>
         <div class="line"><span class="success">agent →</span> <span class="cmd">Transfer complete. Receipt: #TXN-4821</span></div>
         <div class="line"><span class="dim">   📋 Logged: agent=miniclaw action=finance.transfer approver=patrick</span></div>
+        <div class="line">&nbsp;</div>
+        <div class="line"><span class="prompt">pod →</span> <span class="cmd">Send reply to client@acme.com: "Re: Q4 offer"</span></div>
+        <div class="line"><span class="warn">⚠ OpenApe: Action requires human approval</span></div>
+        <div class="line"><span class="dim">   Scope: mail.send | To: client@acme.com | Attachment: offer.pdf</span></div>
+        <div class="line"><span class="success">   ✓ Approved by patrick (42s)</span></div>
+        <div class="line"><span class="success">pod →</span> <span class="cmd">Email sent.</span></div>
+        <div class="line"><span class="dim">   📋 Logged: agent=pod:mail-assistant action=mail.send approver=patrick</span></div>
       </div>
     </div>
   </section>
@@ -1059,12 +1073,19 @@
     <div class="section-label">The platform</div>
     <h2>Identity is the floor.<br>A company runs on top.</h2>
     <p class="lead">
-      Auth and grants make a single action safe. But agents don't act alone — they collaborate,
-      take direction, and own work over time. OpenApe runs them as an organization: every agent
-      has its own DDISA identity, lives in a managed runtime, and stays accountable through grants.
+      Auth and grants make a single action safe. But agents don't act alone — they run on a schedule,
+      collaborate, take direction, and own work over time. Pods run single automations on your Mac;
+      Troop and Nest run whole agent organizations. Every agent has its own DDISA identity and stays
+      accountable through grants.
     </p>
 
     <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🫛</div>
+        <h3>Pods</h3>
+        <p>A desktop app for automations that run on their own: a script on a schedule, AI calls where they help, and only the programs, folders, hosts and secrets you assign. Each Pod runs sandboxed — and every privileged action, like sending an email, waits for your grant.</p>
+        <p style="margin-top: 1rem; color: var(--text-dim); font-size: 0.9rem;">macOS · early access</p>
+      </div>
       <div class="feature-card">
         <div class="feature-icon">🏢</div>
         <h3>Troop</h3>
