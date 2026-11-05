@@ -14,6 +14,8 @@ services:
     image: registry.openape.ai/site-website:${WEBSITE_TAG:-unset}
     container_name: site-website
     restart: unless-stopped
+    sysctls:
+      net.mptcp.enabled: "0"
     networks:
       - coolify
     healthcheck:
